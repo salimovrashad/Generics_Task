@@ -4,15 +4,26 @@
     {
         int[] _arr = new int[0];
 
+        public int Count { get; private set; } = 0;
+        public int Capacity { get; } = 5;
+
+        public ListInt(int capacity)
+        {
+            Capacity = capacity <= 0 ? 5 : capacity;
+        }
         public ListInt(params int[] arr)
         {
             _arr = arr;
+            Count = arr.Length;
         }
 
         public void Add(int value)
         {
-            Array.Resize(ref _arr, _arr.Length + 1);
-            _arr[_arr.Length - 1] = value;
+            if (Count == _arr.Length)
+            {
+                Array.Resize(ref _arr, _arr.Length + Capacity);
+            }
+            _arr[Count++] = value;
         }
 
         public void Clear()
